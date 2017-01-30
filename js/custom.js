@@ -1,11 +1,30 @@
 $(document).ready(function(){
 
+    //************* Start Accordian for FAQs ***********//
+    $(function() {
+
+        function toggleChevron(e) {
+            $(e.target)
+                .prev('.panel-heading')
+                .find("i")
+                .toggleClass('rotate-icon');
+            $('.panel-body.animated').toggleClass('zoomIn zoomOut');
+        }
+
+        $('#accordion').on('hide.bs.collapse', toggleChevron);
+        $('#accordion').on('show.bs.collapse', toggleChevron);
+    });
+
+    //************* End Accordian for FAQs ***********//
+
+
     //************* Start Logout ajax handler ***********//
     $('#logout').click(function(evt) {
         evt.preventDefault();
         $.ajax({
             url:'Admin/logout_handler.php',
             success: function (response) {
+                console.log(response);
                 window.location.href="index.php";
                 //location.reload();
             },
@@ -25,7 +44,7 @@ $(document).ready(function(){
 
             reader.onload = function (e) {
                 $('#img1').attr('src', e.target.result);
-            }
+            };
 
             reader.readAsDataURL(input.files[0]);
         }
@@ -37,7 +56,7 @@ $(document).ready(function(){
 
             reader.onload = function (e) {
                 $('#img2').attr('src', e.target.result);
-            }
+            };
 
             reader.readAsDataURL(input.files[0]);
         }
@@ -97,7 +116,7 @@ $(document).ready(function(){
                 $('#myModal').modal('toggle');
             },
             error: function(){
-                alert("Ajax call error in custom.js")
+                alert("Ajax call error in custom.js");
             }
         });
     })

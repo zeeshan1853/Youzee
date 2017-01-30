@@ -14,37 +14,12 @@ if(isset($_SESSION['userName'])){
 <meta name="keywords" content="" />
 <!-- Custom Theme files -->
 <link href="Admin/css/style.css" rel="stylesheet" type="text/css" media="all"/>
-	<style>
-		.text-white{
-			color: white !important;
-		}
-		.question{
-
-			font-size: larger;
-		}
-	</style>
+	<link href="css/index_styles.css" rel="stylesheet" type="text/css" media="all">
 <!-- //Custom Theme files -->
 <!-- web-font -->
 <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,700' rel='stylesheet' type='text/css'>
 <!-- //web-font -->
-<!-- pop-up-box -->
-<script src="js/jquery-2.2.3.min.js"></script> 
-<script>
-	$(document).ready(function() {
-		$('.popup-top-anim').magnificPopup({
-			type: 'inline',
-			fixedContentPos: false,
-			fixedBgPos: true,
-			overflowY: 'auto',
-			closeBtnInside: true,
-			preloader: false,
-			midClick: true,
-			removalDelay: 300,
-			mainClass: 'my-mfp-zoom-in'
-		});																							
-	}); 
-</script>
-<!-- //pop-up-box --> 
+<script src="js/jquery-2.2.3.min.js"></script>
 </head>
 <body>
 	<!-- login starts here -->
@@ -102,6 +77,14 @@ if(isset($_SESSION['userName'])){
 			<h5 class="w3ls-title">FAQs</h5>
 			<div class="login-modal " id="faq">
 			</div>
+
+			<div class="">
+				<div class="row">
+					<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+					</div>
+				</div>
+			</div>
+
 		</div>
 		<!-- //modal for FAQ-->
 	</div>
@@ -111,124 +94,7 @@ if(isset($_SESSION['userName'])){
 	</div>
 	<!-- //copyright -->
 	<script src="js/jquery.magnific-popup.js" type="text/javascript"></script>
-	<script>
-		$(document).ready(function () {
-
-			//********* Add FAQs ***********//
-			$.ajax({
-				url:"getFAQs.php",
-				contentType: false,
-				cache: false,
-				processData:false,
-				success: function(data){
-					json_response=$.parseJSON(data);
-					$.each( json_response, function( key, value ) {
-						$.each(value,function(again_key,again_value){
-							if(again_key=='question'){
-								console.log(again_value);
-								$("<h1 class='text-primary question'> Question : "+again_value+"</h1>").appendTo('#faq');
-							}
-							if(again_key=='answer'){
-								console.log("Answer :"+again_value);
-								$("<li class='text-primary '> &nbsp;"+again_value+" <br></li>").appendTo('#faq');
-							}
-						});
-					});
-					if(json_response.error){
-						console.log(json_response.error.msg);
-						alert(json_response.error.msg);
-					}
-
-				},
-				error: function(){
-					alert("Ajax call error in custom.js")
-				}
-			});
-
-			$('#signup_form').on('submit', function (e) {
-				e.preventDefault();
-				$.ajax({
-					url:"Admin/signup_form_handler.php",
-					type:"post",
-					data:  new FormData(this),
-					contentType: false,
-					cache: false,
-					processData:false,
-					success: function(data){
-//						alert(data);
-						abc=$.parseJSON(data);
-						if(abc.error){
-							alert(abc.error.msg);
-						}else if(abc.verified){
-							alert(abc.verified.msg);
-						}
-
-					},
-					error: function(){
-						alert("Ajax call error in custom.js")
-					}
-				});
-			});
-
-			//********** Start Login Form handler ***********//
-			$('#login_form').on('submit', function (e) {
-				e.preventDefault();
-				$.ajax({
-					url:"Admin/login_handler.php",
-					type:"post",
-					data:  new FormData(this),
-					contentType: false,
-					cache: false,
-					processData:false,
-					success: function(data){
-						json_response=$.parseJSON(data);
-						if(json_response.verified){
-							console.log(json_response.verified.name);
-							window.location.replace("products.php");
-						}
-						if(json_response.error){
-							console.log(json_response.error.msg);
-							alert(json_response.error.msg);
-						}
-
-					},
-					error: function(){
-						alert("Ajax call error in custom.js")
-					}
-				});
-			})
-			//********** End Login Form handler ***********//
-
-			//************* Start Forget Password ajax handler ***********//
-			$('#forgetPassword_form').on('submit', function (e) {
-				e.preventDefault();
-				$.ajax({
-					url:"forgetPassword.php",
-					type:"post",
-					data:  new FormData(this),
-					contentType: false,
-					cache: false,
-					processData:false,
-					success: function(data){
-						console.log(data);
-						json_response=$.parseJSON(data);
-						if(json_response.verified){
-							alert(json_response.verified.msg);
-							console.log(json_response.verified.msg);
-						}
-						if(json_response.error){
-							console.log(json_response.error.msg);
-							alert(json_response.error.msg);
-						}
-
-					},
-					error: function(){
-						alert("Ajax call error in custom.js")
-					}
-				});
-			})
-			//************* End Forget Password ajax handler ***********//
-		})
-	</script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
+	<script src="js/indexJS.js"></script>
 </body>
 </html>
